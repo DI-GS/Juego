@@ -10,9 +10,22 @@ public class GruntScript : MonoBehaviour
     private int Health = 3;
     private float LastShoot;
 
+    private JohnMovement johnMovement; // Referencia al script de John
+
+    void Start()
+    {
+        if (John != null)
+        {
+            johnMovement = John.GetComponent<JohnMovement>();
+        }
+    }
+
     void Update()
     {
-        if (John == null) return;
+        if (John == null || johnMovement == null) return;
+
+        // Verificar si John está vivo
+        if (johnMovement.gameOver) return;
 
         Vector3 direction = John.position - transform.position;
         if (direction.x >= 0.0f) transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
